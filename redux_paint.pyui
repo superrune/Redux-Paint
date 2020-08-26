@@ -1,0 +1,1059 @@
+[
+  {
+    "nodes" : [
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{0, 0}, {1024, 768}}",
+        "class" : "Label",
+        "attributes" : {
+          "flex" : "WHLRTB",
+          "font_size" : 18,
+          "frame" : "{{437, 368}, {150, 32}}",
+          "uuid" : "91EAC24B-CDD0-49DC-9E97-C3D9296D272F",
+          "class" : "Label",
+          "alignment" : "left",
+          "text" : "",
+          "background_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+          "name" : "labelbg",
+          "font_name" : "<System>"
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{32, 708}, {960, 23}}",
+        "class" : "Label",
+        "attributes" : {
+          "font_size" : 18,
+          "font_name" : "Courier",
+          "frame" : "{{437, 368}, {150, 32}}",
+          "uuid" : "0945665C-BC7B-4BA9-AC45-1E6146DD3E10",
+          "class" : "Label",
+          "alignment" : "right",
+          "text" : "Ready.",
+          "number_of_lines" : 5,
+          "name" : "debugtext",
+          "text_color" : "RGBA(0.551887,0.551887,0.551887,1.000000)"
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{64, 96}, {900, 600}}",
+        "class" : "View",
+        "attributes" : {
+          "flex" : "WLRB",
+          "border_width" : 1,
+          "enabled" : true,
+          "custom_class" : "PixelEditor",
+          "border_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+          "uuid" : "C0DF6FB2-7849-4BE2-ACF4-E5D6C597111C",
+          "name" : "editor"
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+          {
+            "nodes" : [
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{64, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "uuid" : "125F1EB1-3A2F-414E-93ED-A1519D8350D1",
+                  "font_size" : 15,
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.733333,0.733333,0.733333,1.000000)",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000776,1.000000)",
+                  "border_width" : 0,
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Dot",
+                  "enabled" : true,
+                  "font_bold" : false,
+                  "name" : "paintdots",
+                  "flex" : ""
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{224, 0}, {64, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "uuid" : "91BC0ADC-8874-4E6A-8F75-E4813CB4FBB4",
+                  "font_size" : 15,
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.733333,0.733333,0.733333,1.000000)",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000776,1.000000)",
+                  "border_width" : 0,
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Undo",
+                  "enabled" : true,
+                  "font_bold" : false,
+                  "name" : "undo",
+                  "flex" : ""
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{384, 0}, {64, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "uuid" : "FBAB3AB0-3385-456E-988A-C2512634B15E",
+                  "font_size" : 15,
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.733333,0.733333,0.733333,1.000000)",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000776,1.000000)",
+                  "border_width" : 0,
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "File",
+                  "enabled" : true,
+                  "font_bold" : false,
+                  "name" : "file",
+                  "flex" : ""
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{128, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "uuid" : "8C829DD9-D16B-4A84-AC2D-916DB896888A",
+                  "flex" : "",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.733333,0.733333,0.733333,1.000000)",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000776,1.000000)",
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "border_width" : 0,
+                  "title" : "Prev",
+                  "enabled" : true,
+                  "font_bold" : false,
+                  "name" : "preview",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{128, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{56, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Zoom",
+                  "uuid" : "9F0B3572-63AA-44FA-BEE4-395608634EA0",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "class" : "Button",
+                  "font_size" : 11,
+                  "name" : "zoom"
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{96, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{88, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Grd",
+                  "uuid" : "94DE7759-790F-42FD-BAAE-6BB2B1FC0947",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "font_size" : 15,
+                  "name" : "grid"
+                },
+                "selected" : true
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{96, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{104, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Lin",
+                  "uuid" : "96329ADC-8FF3-4004-9ABE-6C902810046C",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "font_bold" : false,
+                  "corner_radius" : 0,
+                  "name" : "paintlines",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{384, 32}, {64, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{120, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.066038,0.066038,0.066038,1.000000)",
+                  "title" : "Exit",
+                  "uuid" : "6AF0DAD9-F57B-487F-BFF8-B9FB2D62777A",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "name" : "exit",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{160, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{136, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Lvl",
+                  "uuid" : "EA08A546-5A4A-4207-9B20-35BEAB4AB4DE",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "name" : "changezoom",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{64, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{152, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Dith",
+                  "uuid" : "E1816234-C036-4D05-B7E7-E542CAF23604",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "name" : "dither",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{160, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{168, 0}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "PPos",
+                  "uuid" : "A7726C43-30AD-4B8A-83F3-1BE2396818FC",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "prevpos",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{192, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "alpha" : 1,
+                  "frame" : "{{104, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Pan",
+                  "uuid" : "B6A89554-1BDB-45B9-9B18-425C013E39DE",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "name" : "pan",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{0, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "action" : "",
+                  "frame" : "{{104, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Bru1",
+                  "uuid" : "FFCD56D3-B03E-46CD-B002-C99942E1F02F",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "name" : "brush1",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{32, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "action" : "",
+                  "frame" : "{{184, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Bru2",
+                  "uuid" : "9EACCAD1-CC7B-426E-9DF1-B68DF0309762",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "name" : "brush2",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{0, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "action" : "",
+                  "frame" : "{{184, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Bru6",
+                  "uuid" : "7CBD1474-4D5E-4AA5-B815-D80E69EEA9F8",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "name" : "brush6",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{32, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "action" : "",
+                  "frame" : "{{184, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "BruC",
+                  "uuid" : "44356476-677A-4A0C-AE50-D7BD00F0E37A",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "name" : "brushc",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{224, 32}, {64, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "uuid" : "79670A65-1726-418C-9FF9-D062D2EF32EC",
+                  "font_size" : 15,
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.733333,0.733333,0.733333,1.000000)",
+                  "frame" : "{{255, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000776,1.000000)",
+                  "border_width" : 0,
+                  "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Redo",
+                  "enabled" : true,
+                  "font_bold" : false,
+                  "class" : "Button",
+                  "name" : "redo",
+                  "flex" : ""
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{288, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{255, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "MirX",
+                  "uuid" : "324B99F3-162B-4FDE-96B2-372771716DA9",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "name" : "mirrorx",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{288, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{255, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "MirY",
+                  "uuid" : "551E1B4C-8BD4-46B5-AE90-946ED7DB5FDB",
+                  "class" : "Button",
+                  "corner_radius" : 0,
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "name" : "mirrory",
+                  "font_size" : 15
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{192, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{255, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Sel",
+                  "uuid" : "89A8F62D-0EEA-45E5-BFBF-65D911F8A37C",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "select",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{320, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{255, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Up",
+                  "uuid" : "8D2F3535-6D64-4497-B9E5-10B560BC2364",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "moveup",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{320, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{248, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Down",
+                  "uuid" : "64CEFC22-A4DC-4012-9906-B10A3F51AA00",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "movedown",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{352, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{248, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Left",
+                  "uuid" : "4B07517C-8727-497B-B7F1-DD4EAE34214A",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "moveleft",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{352, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "border_width" : 0,
+                  "frame" : "{{248, 16}, {80, 32}}",
+                  "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "title" : "Right",
+                  "uuid" : "AB29BCEB-E059-4090-9BC9-CD72A81EE845",
+                  "class" : "Button",
+                  "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+                  "corner_radius" : 0,
+                  "font_bold" : true,
+                  "name" : "moveright",
+                  "font_size" : 11
+                },
+                "selected" : false
+              }
+            ],
+            "frame" : "{{0, 0}, {448, 64}}",
+            "class" : "View",
+            "attributes" : {
+              "border_width" : 0,
+              "action" : "",
+              "enabled" : true,
+              "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "flex" : "",
+              "title" : "grad",
+              "uuid" : "922E13B9-6F8D-4D82-808E-A3380A309CAB",
+              "corner_radius" : 0,
+              "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "font_size" : 12,
+              "name" : "tools"
+            },
+            "selected" : true
+          }
+        ],
+        "frame" : "{{64, 16}, {448, 64}}",
+        "class" : "View",
+        "attributes" : {
+          "flex" : "",
+          "border_width" : 1,
+          "enabled" : true,
+          "custom_class" : "ToolbarView",
+          "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+          "background_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+          "uuid" : "064BEC5B-A9A1-432F-B6BB-58CBCCFFA6F9",
+          "name" : "toolbar"
+        },
+        "selected" : true
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{0, 560}, {300, 200}}",
+        "class" : "ImageView",
+        "attributes" : {
+          "border_width" : 1,
+          "flex" : "",
+          "enabled" : true,
+          "border_color" : "RGBA(0.172170,0.172170,0.172170,1.000000)",
+          "name" : "preview",
+          "uuid" : "76648CDF-D913-4BE5-B9B7-18DF118351D4"
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{32, 0}, {96, 64}}",
+            "class" : "Label",
+            "attributes" : {
+              "font_name" : "<System>",
+              "frame" : "{{211, 0}, {150, 32}}",
+              "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "uuid" : "966307B5-93A4-4218-BD85-C4705847EFFE",
+              "class" : "Label",
+              "alignment" : "left",
+              "text" : "",
+              "background_color" : "RGBA(0.021226,0.021226,0.021226,1.000000)",
+              "font_size" : 18,
+              "name" : "bg_color"
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{0, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{10, 34}, {80, 32}}",
+                  "title" : "00",
+                  "uuid" : "DE5BF31D-8975-43A8-818C-85AD1B62C47D",
+                  "background_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+                  "class" : "Button",
+                  "font_bold" : true,
+                  "name" : "button1",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{32, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "flex" : "",
+                  "frame" : "{{-8, 36}, {80, 32}}",
+                  "title" : "01",
+                  "uuid" : "3A34CECB-95BC-440E-81F2-B775CE85E0A1",
+                  "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+                  "class" : "Button",
+                  "name" : "button2",
+                  "font_size" : 12
+                },
+                "selected" : true
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{64, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 79}, {80, 32}}",
+                  "title" : "02",
+                  "uuid" : "2883F018-3146-4E00-BEA5-6B67151F1305",
+                  "background_color" : "RGBA(0.623529,0.235294,0.313726,1.000000)",
+                  "class" : "Button",
+                  "name" : "button3",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{96, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "03",
+                  "uuid" : "D20814B6-2BCE-43ED-BDC2-F72B3152AD37",
+                  "background_color" : "RGBA(0.525490,0.917647,0.823529,1.000000)",
+                  "class" : "Button",
+                  "name" : "button4",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{128, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "04",
+                  "uuid" : "9202B71F-CB86-42D0-BC2C-32D922801BF6",
+                  "background_color" : "RGBA(0.643137,0.274510,0.713726,1.000000)",
+                  "class" : "Button",
+                  "name" : "button5",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{160, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "05",
+                  "uuid" : "85DBBD7E-AD17-46C5-8139-C9169B4FBCA9",
+                  "background_color" : "RGBA(0.368627,0.768627,0.372549,1.000000)",
+                  "class" : "Button",
+                  "name" : "button6",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{192, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "06",
+                  "uuid" : "3F8F2912-9B7E-47E5-88F7-06615235A30F",
+                  "background_color" : "RGBA(0.243137,0.200000,0.752941,1.000000)",
+                  "class" : "Button",
+                  "name" : "button7",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{224, 0}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "07",
+                  "uuid" : "82B83067-68DA-47CF-BA49-3B6EB92CD2F1",
+                  "background_color" : "RGBA(0.980392,1.000000,0.498039,1.000000)",
+                  "class" : "Button",
+                  "name" : "button8",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{0, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "08",
+                  "uuid" : "8BE905B0-8265-417F-BDA1-FB791E128D9B",
+                  "background_color" : "RGBA(0.639216,0.384314,0.133333,1.000000)",
+                  "class" : "Button",
+                  "name" : "button9",
+                  "font_size" : 11
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{32, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "09",
+                  "uuid" : "57980734-366D-4846-B241-161BCC884C42",
+                  "background_color" : "RGBA(0.403922,0.266667,0.000000,1.000000)",
+                  "class" : "Button",
+                  "name" : "button10",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{64, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0A",
+                  "uuid" : "314C6364-FF08-42C4-81FF-6E19ED01A935",
+                  "background_color" : "RGBA(0.870588,0.474510,0.545098,1.000000)",
+                  "class" : "Button",
+                  "name" : "button11",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{96, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0B",
+                  "uuid" : "7BC134B6-CD8E-4D8F-B177-68F9082C1905",
+                  "background_color" : "RGBA(0.341176,0.349020,0.337255,1.000000)",
+                  "class" : "Button",
+                  "name" : "button12",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{128, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0C",
+                  "uuid" : "6AE6F095-423E-49A3-8AA2-9D97D998768E",
+                  "background_color" : "RGBA(0.545098,0.552941,0.541176,1.000000)",
+                  "class" : "Button",
+                  "name" : "button13",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{160, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0D",
+                  "uuid" : "4C201E2D-6AD6-49DA-B167-C21E7FB00A43",
+                  "background_color" : "RGBA(0.717647,0.996078,0.721569,1.000000)",
+                  "class" : "Button",
+                  "name" : "button14",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{192, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0E",
+                  "uuid" : "360A62CA-A173-450B-B206-3412EE74640A",
+                  "background_color" : "RGBA(0.549020,0.501961,1.000000,1.000000)",
+                  "class" : "Button",
+                  "name" : "button15",
+                  "font_size" : 12
+                },
+                "selected" : false
+              },
+              {
+                "nodes" : [
+
+                ],
+                "frame" : "{{224, 32}, {32, 32}}",
+                "class" : "Button",
+                "attributes" : {
+                  "frame" : "{{-8, 112}, {80, 32}}",
+                  "title" : "0F",
+                  "uuid" : "99368E47-546F-4C60-93D6-0D4EB46B7536",
+                  "background_color" : "RGBA(0.768627,0.768627,0.760784,1.000000)",
+                  "class" : "Button",
+                  "name" : "button16",
+                  "font_size" : 12
+                },
+                "selected" : false
+              }
+            ],
+            "frame" : "{{128, 0}, {256, 64}}",
+            "class" : "View",
+            "attributes" : {
+              "frame" : "{{522, 0}, {100, 100}}",
+              "class" : "View",
+              "name" : "palette",
+              "uuid" : "2CF2738E-BA99-4B0B-A6C4-E2557D6FE339"
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{384, 0}, {64, 32}}",
+            "class" : "Button",
+            "attributes" : {
+              "border_width" : 0,
+              "action" : "",
+              "frame" : "{{262, 0}, {80, 32}}",
+              "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "title" : "grad",
+              "uuid" : "4F48FAFF-09B6-422F-9706-D86A155F1BAC",
+              "class" : "Button",
+              "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+              "corner_radius" : 0,
+              "name" : "set_palette",
+              "font_size" : 12
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{384, 32}, {64, 32}}",
+            "class" : "Button",
+            "attributes" : {
+              "border_width" : 0,
+              "frame" : "{{145, 16}, {80, 32}}",
+              "tint_color" : "RGBA(0.054245,0.054245,0.054245,1.000000)",
+              "title" : "hold",
+              "uuid" : "D457ECDE-0B5F-440C-BFB9-FB38217EDC99",
+              "font_bold" : false,
+              "class" : "Button",
+              "corner_radius" : 0,
+              "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+              "name" : "hold",
+              "font_size" : 12
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{0, 0}, {32, 32}}",
+            "class" : "Button",
+            "attributes" : {
+              "border_width" : 0,
+              "action" : "",
+              "frame" : "{{177, 16}, {80, 32}}",
+              "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "title" : "char",
+              "uuid" : "953A7BCE-94C7-47E2-A2FE-14A67BAA4695",
+              "class" : "Button",
+              "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+              "corner_radius" : 0,
+              "name" : "chartest",
+              "font_size" : 12
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{0, 32}, {32, 32}}",
+            "class" : "Button",
+            "attributes" : {
+              "border_width" : 0,
+              "action" : "",
+              "frame" : "{{177, 16}, {80, 32}}",
+              "tint_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+              "title" : "lock",
+              "uuid" : "01D28143-3185-460E-9C08-060D5C1C517C",
+              "class" : "Button",
+              "background_color" : "RGBA(0.729412,0.729412,0.729412,1.000000)",
+              "corner_radius" : 0,
+              "name" : "lockbg",
+              "font_size" : 12
+            },
+            "selected" : false
+          },
+          {
+            "nodes" : [
+
+            ],
+            "frame" : "{{60, 12}, {40, 40}}",
+            "class" : "Button",
+            "attributes" : {
+              "frame" : "{{177, 16}, {80, 32}}",
+              "title" : "current_color",
+              "uuid" : "3E59FB9C-BEFB-4D0D-BD52-064E73587544",
+              "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+              "class" : "Button",
+              "name" : "current_color",
+              "font_size" : 15
+            },
+            "selected" : true
+          }
+        ],
+        "frame" : "{{512, 16}, {448, 64}}",
+        "class" : "View",
+        "attributes" : {
+          "flex" : "",
+          "border_width" : 0,
+          "enabled" : true,
+          "custom_class" : "ColorView",
+          "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+          "background_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+          "uuid" : "C7DAADF0-D289-413B-94AD-38145D216142",
+          "corner_radius" : 0,
+          "name" : "colors"
+        },
+        "selected" : false
+      }
+    ],
+    "frame" : "{{0, 0}, {1024, 768}}",
+    "class" : "View",
+    "attributes" : {
+      "flex" : "",
+      "enabled" : true,
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
+      "custom_class" : "",
+      "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+      "background_color" : "RGBA(0.857143,0.857143,0.857143,1.000000)",
+      "name" : "Pixel Editor"
+    },
+    "selected" : false
+  }
+]
