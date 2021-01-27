@@ -71,9 +71,9 @@ Here are a quick run-though of the icons, from left to right:
 
 <img src="/icons/tool_offset_down.png" width="24" height="24"/> - Shifts the image one character (8 pixels) down.
 
-<img src="/icons/tool_offset_right.png" width="24" height="24"/> - Shifts the image one character (8 pixels) to the right.
+<img src="/icons/tool_offset_right.png" width="24" height="24"/> - Shifts the image one character (4 pixels) to the right.
 
-<img src="/icons/tool_offset_left.png" width="24" height="24"/> - Shifts the image one character (8 pixels) to the left.
+<img src="/icons/tool_offset_left.png" width="24" height="24"/> - Shifts the image one character (4 pixels) to the left.
 
 <img src="/icons/tool_file.png" width="48" height="24"/> - Opens the File Operations windows (see below).
 
