@@ -62,6 +62,33 @@ The icons on the far left are brush sizes. You have 1, 2 and 6 pixel brushes ava
 
 <img src="/icons/tool_redo.png" width="48" height="24"/> - Redo one step.
 
+<img src="/icons/tool_flipx.png" width="24" height="24"/> - Flips/mirrors the image horizontally.
+
+<img src="/icons/tool_flipy.png" width="24" height="24"/> - Flips/mirrors the image vertically.
+
+<img src="/icons/tool_offset_up.png" width="24" height="24"/> - Shifts the image one character (8 pixels) up.
+
+<img src="/icons/tool_offset_down.png" width="24" height="24"/> - Shifts the image one character (8 pixels) down.
+
+<img src="/icons/tool_offset_right.png" width="24" height="24"/> - Shifts the image one character (8 pixels) to the right.
+
+<img src="/icons/tool_offset_left.png" width="24" height="24"/> - Shifts the image one character (8 pixels) to the left.
+
+<img src="/icons/tool_file.png" width="48" height="24"/> - Opens the File Operations windows (see below).
+
+<img src="/icons/tool_exit.png" width="48" height="24"/> - Exits Redux Paint.
+
+<img src="/icons/tool_charinfo.png" width="24" height="24"/> - Toggles different colour info modes. First will examines the image for colour clashes, characters marked in red have too many colours. Two next modes will mark characters with two or one colour available. See the info text at the bottom of Redux Paint window for more information. Cycling this button will also turn off the colour info mode, which will slow down Redux Paint if kept active.
+
+<img src="/icons/tool_palette_lock_off.png" width="24" height="24"/> - Locks the background colour selection, so that it cannot be changed. You can set the background colour by clicking a palette colour twice. This is easy to do by accident, so locking the background is good practice when you are checking colour clashes.
+
+Next is the active colour swatch. The box in the middle show the current colour, and the border show the background colour. Setting the background colour is important when checking colour clashes and exporting the image to Koala or PRG. Pressing the active colour swatch will swap the foreground with the background. You can set the background colour by clicking a palette colour twice.
+
+After the current foreground and background colour are the Commodore 64 colours. Press a colour to make it the active drawing colour. You can set the background colour by clicking a palette colour twice.
+
+<img src="/icons/tool_palette_numeric.png" width="48" height="24"/> - Pressing this button will sort the colours by their C64 numeric order, or ordered by their luminance values. The latter is good for making gradients.
+
+<img src="/icons/tool_hold_off.png" width="48" height="24"/> - This button will lock or mask the background colour, either protecting if from drawing or letting you draw only on that colour. Using this function you can quickly, for example, paint over all the blue in the image. 
 
 
 ### The file operations window
