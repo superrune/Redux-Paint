@@ -9,14 +9,14 @@
         "class" : "Label",
         "attributes" : {
           "flex" : "WHLRTB",
-          "font_size" : 18,
+          "name" : "labelbg",
           "frame" : "{{437, 368}, {150, 32}}",
           "uuid" : "91EAC24B-CDD0-49DC-9E97-C3D9296D272F",
           "class" : "Label",
           "alignment" : "left",
           "text" : "",
           "background_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
-          "name" : "labelbg",
+          "font_size" : 18,
           "font_name" : "<System>"
         },
         "selected" : false
@@ -25,7 +25,7 @@
         "nodes" : [
 
         ],
-        "frame" : "{{32, 708}, {960, 23}}",
+        "frame" : "{{32, 724}, {960, 23}}",
         "class" : "Label",
         "attributes" : {
           "font_size" : 18,
@@ -45,7 +45,7 @@
         "nodes" : [
 
         ],
-        "frame" : "{{64, 96}, {900, 600}}",
+        "frame" : "{{64, 116}, {900, 600}}",
         "class" : "View",
         "attributes" : {
           "flex" : "WLRB",
@@ -586,7 +586,7 @@
             "selected" : true
           }
         ],
-        "frame" : "{{64, 16}, {448, 64}}",
+        "frame" : "{{64, 42}, {448, 64}}",
         "class" : "View",
         "attributes" : {
           "flex" : "",
@@ -598,7 +598,7 @@
           "uuid" : "064BEC5B-A9A1-432F-B6BB-58CBCCFFA6F9",
           "name" : "toolbar"
         },
-        "selected" : true
+        "selected" : false
       },
       {
         "nodes" : [
@@ -633,8 +633,8 @@
               "alignment" : "left",
               "text" : "",
               "background_color" : "RGBA(0.021226,0.021226,0.021226,1.000000)",
-              "font_size" : 18,
-              "name" : "bg_color"
+              "name" : "bg_color",
+              "font_size" : 18
             },
             "selected" : false
           },
@@ -1027,7 +1027,7 @@
             "selected" : true
           }
         ],
-        "frame" : "{{512, 16}, {448, 64}}",
+        "frame" : "{{512, 42}, {448, 64}}",
         "class" : "View",
         "attributes" : {
           "flex" : "",

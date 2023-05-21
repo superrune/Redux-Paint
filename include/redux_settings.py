@@ -1,4 +1,4 @@
-#!python2
+#!python3
 
 from redux_functions import *
 
@@ -7,16 +7,16 @@ class Settings (object):
 	width = 320
 	height = 200
 	pixelSize = 2  # 1: C64 singlecolor mode, 2: C64 multicolor mode (only 2 works right now)
-	actualWidth = width / pixelSize
+	actualWidth = int(width / pixelSize)
 	charSize = 8
 	
 	# Main GUI settings
 	toolbarWidth = 448
 	colorbarWidth = 448
 	
-	undoSteps = 30
+	undoSteps = 99
 	image_location = "images/"
-	autoSaveTime = 120  # Number of seconds between autosaves
+	autoSaveTime = 5*60  # Number of seconds between autosaves
 	previewTime = 2  # Seconds to wait between redrawing preview
 	
 	aspectPAL = 0.9375 # 4:3 aspect ratio

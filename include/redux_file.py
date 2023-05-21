@@ -1,7 +1,9 @@
-#!python2
+#!python3
 
 import ui
 import console
+import ImageChops
+import ImageOps
 from dialogs import share_image, pick_document
 from photos import pick_asset, get_assets
 from glob import iglob, glob
@@ -9,6 +11,8 @@ from os.path import isfile, isdir, getctime, basename, exists, splitext
 from os import mkdir, listdir, remove, rename
 from shutil import copy2, copytree, rmtree, copyfile
 from objc_util import ObjCInstance
+from PIL import Image
+#from images2gif import writeGif # Missing from latest Pythonista
 
 from redux_settings import Settings
 from redux_import import ImportWindow
@@ -16,8 +20,8 @@ from redux_functions import *
 
 class FileWindow(ui.View):
 	def __init__(self):
-		buttcol = color_to_1(Settings.c64color_palette[14])
-		backcol = color_to_1(Settings.c64color_palette[6]) #'black'
+		buttcol = color_to_1(Settings.c64color_palette[12])
+		backcol = color_to_1(Settings.c64color_palette[11]) #'black'
 		textcol = 'white' #color_to_1(Settings.c64color_palette[6]) #'black'
 		coltwo = 210
 		self.selectedImage = ''
@@ -39,6 +43,8 @@ class FileWindow(ui.View):
 		self.corner_radius = 16
 		self.flex = 'LRTB'
 		
+		self.sizeMult = 3
+		self.scanlineStrength = 0.2
 		
 		label = ui.Label(frame=(0, 0, self.width, 64), flex='w', font=('HelveticaNeue-Light', 32),
 				alignment=ui.ALIGN_CENTER, text='File Operations')
@@ -96,7 +102,7 @@ class FileWindow(ui.View):
 		
 		rename_button = build_button('Rename', butt_width, (butt_x, butt_y+32), self.rename, 'tool_rename.png')
 		duplicate_button = build_button('Duplicate', butt_width, (butt_x+(butt_width),butt_y+32), self.duplicate, 'tool_delete.png')
-		camroll_button = build_button('Photos', butt_width, (butt_x+(butt_width*2), butt_y+32), self.importphotos, 'tool_rename.png')
+		camroll_button = build_button('Photos', butt_width, (butt_x+(butt_width*2), butt_y+32), self.importphoto, 'tool_rename.png')
 		delete_button = build_button('Delete', butt_width, (butt_x+(butt_width*3),butt_y+32), self.deletefile, 'tool_delete.png')
 		
 		# Second group of buttons, share buttons
@@ -107,11 +113,38 @@ class FileWindow(ui.View):
 		koala_button = build_button('.koa', butt_width, (butt_x++(butt_width*2),butt_y), self.save_koala, 'tool_koa.png')
 		program_program = build_button('.prg', butt_width, (butt_x+(butt_width*3),butt_y), self.save_program, 'tool_prg.png')
 		
+		# Share image with correct aspect plus optional scale and scanlines
+		butt_x, butt_y = (coltwo, 432)
+		shareaspect_button = build_button('Share PAL', butt_width, (butt_x,butt_y), self.save_multiply_aspect, 'tool_share.png')
+		
+		self.slider_size = ui.Slider(frame=(butt_x+(butt_width),butt_y,butt_width,32), action=self.set_scale_multiplier, value=0.5)
+		self.add_subview(self.slider_size)
+		
+		self.slider_scanlines = ui.Slider(frame=(butt_x+(butt_width*2),butt_y,butt_width,32), action=self.set_scanline_strength, value=self.scanlineStrength)
+		self.add_subview(self.slider_scanlines)
+		
+		gif_button = build_button('.gif', butt_width, (butt_x++(butt_width*3),butt_y), self.save_gif, 'tool_koa.png')
+		gif_button.enabled = False # This button does not work in the latest Pythonista
+		
 		ui.delay(self.init_filepreview,0.01)
 		
 	#def layout(self):
 	#	print('File operations layout placeholder')
 	#	return True
+	
+	def set_scale_multiplier(self, sender):
+		minScale = 2
+		maxScale = 4
+		newScale = minScale + ((maxScale - minScale)*sender.value)
+		
+		self.sizeMult = int(newScale)
+		self.superview['debugtext'].text = 'Output scale set to ' + str(self.sizeMult)
+		return True
+	
+	def set_scanline_strength(self, sender):
+		self.scanlineStrength = sender.value
+		self.superview['debugtext'].text = 'Scanline strength set to ' + str(self.scanlineStrength)
+		return True
 	
 	def init_filepreview(self):
 		editorimage = self.superview['editor'].imageName + '.png'
@@ -132,11 +165,11 @@ class FileWindow(ui.View):
 		
 		#cell.content_view.bg_color = None
 		#cell.content_view.alpha = 1
-		#cell.bg_color = color_to_1(Settings.c64color_palette[6]) # 6 is blue, 14 light blue
+		cell.bg_color = color_to_1(Settings.c64color_palette[12])
 		
 		#cell.content_view.bg_color = None
 		#cell.content_view.alpha = 0
-		cell.bg_color = None
+		#cell.bg_color = None
 		
 		# None of these work!
 		self.highlight_color = 'red'
@@ -161,15 +194,15 @@ class FileWindow(ui.View):
 	def load(self,sender):
 		#print (sender.name)
 		#print (sender.superview['filelist'].data_source.items)
-		basename = pngstrip(self.imagefiles[self.filelist.selected_row[1]])
-		file_name = "images/" + basename + '.png'
+		base_name = pngstrip(self.imagefiles[self.filelist.selected_row[1]])
+		file_name = "images/" + base_name + '.png'
 		if isfile(file_name):
-			self.superview['editor'].imageName = basename
+			self.superview['editor'].imageName = base_name
 			#print ('Imagename set to "'+ self.superview['editor'].imageName + '"')
 			#if self.superview['editor'].zoomState is True:
 			#	self.superview['ToolbarView'].zoom(sender)
 			self.superview['editor'].loadimage(file_name)
-			self.superview['debugtext'].text = 'Loaded ' + basename
+			self.superview['debugtext'].text = 'Loaded ' + base_name
 			return True
 	
 	def new(self, sender):
@@ -232,20 +265,25 @@ class FileWindow(ui.View):
 		return True
 	
 	
-	def importphotos(self, sender):
+	def importphoto(self, sender):
 		photo_asset = pick_asset(assets=get_assets(),title='Select image for import', multi=False)
 		
 		if str(photo_asset) == 'None':
 			print ('No image selected. Canceling import.')
 		else:
 			if photo_asset.media_type == 'image':
-				pngdata = ui.Image.from_data(photo_asset.get_image_data().getvalue())
+				# Previous method crashes now. Using a temporary (I hope) workaround.
+				#pngdata = ui.Image.from_data(photo_asset.get_image_data().getvalue())
+				import_photo = photo_asset.get_image()
+				import_photo.save('temp/import_photo.jpg')
+				
+				pngdata = ui.Image.named('temp/import_photo.jpg')
 				
 				base = str(ObjCInstance(photo_asset).filename())
 				new_name = splitext(base)[0]
 				
 				while new_name+'.png' in self.imagefiles:
-					new_name = console.input_alert('Rename Image', 'Image with a similar name already exists, please rename this image to import it.', new_name, 'Rename')
+					new_name = console.input_alert('Rename Image', 'Image with an identical name already exists, please rename this image to import it.', new_name, 'Rename')
 				
 				copied_file = 'temp/' + new_name + splitext(base)[1]
 				with open(copied_file,'wb') as f:
@@ -327,7 +365,62 @@ class FileWindow(ui.View):
 	@ui.in_background
 	def save_koala(self, sender):
 		self.superview['editor'].savebinary(fileFormat='koa')
+	
+	
+	@ui.in_background
+	def save_gif(self, sender):
+		# Create GIF-animation from all images in folder
+		current_name = pngstrip(self.selectedImage)
+		image_location = Settings.image_location + current_name
+		all_images = glob(image_location + '/*.png')
+		all_images.sort(key=str.lower)
 		
+		# Todo: Find a way to reduce per minute frames
+		kept_images = []
+		for img in all_images:
+			base_name = pngstrip(basename(img))
+			if len(base_name) == 11:
+				kept_images.append(img)
+			else:
+				foundMatch = False
+				for kept in kept_images:
+					if pngstrip(basename(kept))[:-2] == base_name[:-2] :
+						foundMatch = True
+				if foundMatch == False:
+					# print (base_name[:-1])
+					kept_images.append(img)
+		
+		print ('Image list reduced from ' + str(len(all_images)) + 
+			' images to ' + str(len(kept_images)) + ' images.')
+		
+		if len(kept_images) != len(all_images):
+			all_images = kept_images			
+		
+		gifname = current_name + '_progress_hour.gif'
+		
+		frames = []
+		for img in all_images:
+			new_img = Image.open(img).convert('RGB')
+			new_img = self.multiply_aspect(new_img, self.sizeMult, self.scanlineStrength)
+			frames.append(new_img)
+		
+		if len(frames) < 3:
+			console.hud_alert('Not enough frames to create gif from "' + current_name + '".')
+			return False
+		
+		# Duplicate the last frame
+		for x in range(6):
+			frames.append(frames[-1])
+		
+		writeGif(gifname, frames, 0.5)	
+		sharemsg = console.open_in(gifname)
+		remove(gifname)
+		
+		console.hud_alert('Successfully shared GIF animation.')
+		
+		return True
+		
+						
 	@ui.in_background
 	def save_program(self, sender):
 		self.superview['editor'].savebinary(fileFormat='prg')
@@ -344,19 +437,64 @@ class FileWindow(ui.View):
 			console.hud_alert('Successfully shared PNG image.')
 		else:
 			self.show_error()
+	
+	
+	def multiply_aspect(self,img, multiplier, scanline_strength):
+		sizeMult = multiplier
+		
+		if sizeMult == 3:
+			img = img.resize((Settings.width*8, Settings.height*8), Image.NEAREST)
+			img = img.resize((int(Settings.width*sizeMult*Settings.aspectPAL), Settings.height*sizeMult), Image.ANTIALIAS)
+		else:
+			img = img.resize((Settings.width*sizeMult, Settings.height*sizeMult), Image.NEAREST)
+			img = img.resize((int(Settings.width*sizeMult*Settings.aspectPAL), Settings.height*sizeMult), Image.ANTIALIAS)
+		
+		if scanline_strength > 0.0:
+			# Create repeating data for crt overlay
+			crt_img = Image.new("L", (1, Settings.height*sizeMult), 0)
+			scanline_colour = int(255-(255*scanline_strength))
+			imgdata = [255]*(sizeMult-1)
+			imgdata.append(scanline_colour)
+			imgdata = imgdata*Settings.height
+			
+			crt_img.putdata(imgdata)
+			crt_img = crt_img.resize((int(Settings.width*sizeMult*Settings.aspectPAL), Settings.height*sizeMult), Image.NEAREST)
+			crt_img = crt_img.convert("RGB")
+			
+			img = img.convert("RGB")
+			img = ImageChops.multiply(img, crt_img)
+		return img
+	
+	
+	def save_multiply_aspect(self, sender):
+		sizeMult = self.sizeMult
+		pixel_editor = self.superview['editor']
+		if pixel_editor.has_image():
+			saveimage = pixels_to_png(pixel_editor.background_color, 
+					pixel_editor.pixels, pixel_editor.row*2, 
+					pixel_editor.column)
+			
+			saveimage = self.multiply_aspect(saveimage, self.sizeMult, self.scanlineStrength)				
+			sharemsg = share_image(saveimage)
+			
+			console.hud_alert('Successfully shared PNG image.')
+		else:
+			self.show_error()
 			
 	def save_crt(self, sender):
 		pixel_editor = self.superview['editor']
 		if pixel_editor.has_image():
-			image = pixels_to_png(pixel_editor.background_color, pixel_editor.pixels, pixel_editor.row*2, pixel_editor.column)
 			# Scale image to match PAL aspect ratio
 			saveimage = ui_to_pil(self.superview['preview'].image)
+			
 			saveimage = saveimage.resize((int(saveimage.width*Settings.aspectPAL), saveimage.height), Image.ANTIALIAS)
+			
 			sharemsg = share_image(saveimage)
-			print ('Save_CRT returned: ' + str(sharemsg))
+			
+			#print ('Save_CRT returned: ' + str(sharemsg))
 			#photos.save_image(pil_to_ui(saveimage))
 			
 			console.hud_alert('Saved shared CRT preview.')
 		else:
 			self.show_error()
-	
+

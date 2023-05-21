@@ -1,4 +1,4 @@
-#!python2
+#!python3
 
 import ui
 import ImageEnhance
@@ -137,7 +137,11 @@ def index_to_xy(arrayIndex, actual_width):
 def pil_to_ui(img):
 	with BytesIO() as bIO:
 		img.save(bIO, 'png')
-		return ui.Image.from_data(bIO.getvalue())
+		return ui.Image.from_data(bIO.getvalue()) # 'PY_SSIZE_T_CLEAN macro must be defined for '#' formats'
+		
+		# Above version failed to work for a few versions. Here's the workaround just in case:
+		#img.save('temp/preview.png')
+		#return ui.Image.named('temp/preview.png')
 		
 		
 # Convert from ui.image to PIL Image
@@ -148,7 +152,7 @@ def ui_to_pil(img):
 def pixels_to_png(bg_color, pixels, width, height):
 	# Create image
 	bgColor = color_to_255(bg_color)
-	im = Image.new("RGB", (width, height), bgColor)
+	im = Image.new("RGB", (int(width), int(height)), bgColor)
 	# Fill with pixels
 	for p in pixels:
 		pixelCol = bgColor
@@ -175,7 +179,7 @@ def file_to_img(filename, actual_width, height, antialias=False):
 	# If the image is 320 by 200 pixels, we resize it to 160 by 200
 	if im.size == (actual_width*2, height):
 		#print('Scale mode 1 on ' + str(filename))
-		im = im.resize((actual_width, height), scalefilter)
+		im = im.resize((int(actual_width), int(height)), scalefilter)
 	
 	# Image size differs, we crop the image and do an aspect ratio conversion
 	else:
@@ -222,8 +226,8 @@ def build_button(self, button_name, button_width, button_pos, button_action, but
 #	dither_distance_range = Settings.dither_distance_range
 
 def convert_c64(img, conversion_palette, gamma_value, palette_gamma, c64color_names, dither_method, dither_pattern_data, dither_pattern, dither_distance_range, dither_range, startline=0, endline=20):	
-	for ycoord in xrange(startline, endline):
-		for xcoord in xrange(0, img.width):
+	for ycoord in range(startline, endline):
+		for xcoord in range(0, img.width):
 			#if ycoord%10 > 4:
 			#	img.putpixel((xcoord,ycoord),img.getpixel((xcoord,ycoord)))
 			#else:

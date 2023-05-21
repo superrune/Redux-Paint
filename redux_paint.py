@@ -1,31 +1,26 @@
-#!python2
+#!python3
 
 # Redux Paint AKA Pythonista C64 Painter AKA Python learning exercise gone rogue
 #
-# Rune Spaans 2017-2020
+# Rune Spaans 2017-2023
 #
 # Bringest ye holy handgrenades, here be monstrous code and vicious rabbits!
-# Based on the Pythonista Pixel Editor by Sebastian Jarsve
+# Some code based on Pythonista Pixel Editor by Sebastian Jarsve
 #
 #
 # Features Todo:
-# v Import from Camera Roll.
-# v Change position of preview image.
 # - Select a rectangular area. Flip and offset content.
-# - Create animated GIF from autosaves. Delete GIF frames. Restore to previous version.
 # - Save UI options inbetween sessions (brush type, ordered palette, bglock, bgcolor etc).
+#   - Use built in Python ini file module?
 # - Palm reject option - is that possible in Pythonista?
 # - Copy/paste a selection.
-# - Copy/paste a character (use character as tile brush).
 # - Import Koala image.
 # - Auto-correct clashes when exporting to Koala or PRG. Clash preview?
-# - Separate window for compressing to chars (and export to charset or Charpad?).
 #
 # Fixes/Bugs Todo:
-# -- Sometimes undo leads to a crash. Investigate!
-# -- Rare crash on startup, when drawing screen? Create log-file. Figure out when and why.
+# - Disable draw while file and import windows are open.
+# -- Don't exit after exporting.
 # - Undoing stroke that goes off-canvas puts a new pixel on the last pixel when painting again.
-# - Convert to Python 3.
 # - Improve layouts on other devices and orientations.
 # - Keep an image changed variable, only autosave when this is tagged? A little quicker than current solution.
 # - Optimize draw line, several alternatives to consider.
@@ -35,7 +30,6 @@
 # 	- Include mirror and offset operations in undo stack.
 # - Add some kind of progress indicator when doing longer redraws, loads and saves.
 # - Zoom function sometimes ends by drawing a pixel. Figure out why.
-# - Start of stroke tends to get a slowdown, skipping pixels. Figure out why. (Mostly on older iPads)
 # - Error on exit if there is no image. 'has_image' function fails.
 # - Can the preview window be draggable?
 # - Code changes have resulted in duplicate and unused functions, go through and clean up.
@@ -68,10 +62,11 @@ from shutil import copy2, copytree, rmtree
 
 
 # Redux Paint imports
+from include.redux_functions import *
 from include.redux_settings import Settings
 from include.redux_file import FileWindow
-from include.redux_functions import *
-				
+#from redux_file import FileWindow
+
 
 
 # The Pixel, an array of these holds the current image
@@ -123,7 +118,10 @@ class PixelEditor(ui.View):
 	currentUndoStep = 0
 	
 	def layout(self):
-		screenWidth, screenHeight = self.superview.width, self.superview.height
+		# This function will update the Redux Paint layout when the screen size is changed
+		# Todo: Find a way to update the file window
+		
+		screenWidth, screenHeight = int(self.superview.width), int(self.superview.height)
 		#screenWidth, screenHeight = ui.get_screen_size()
 		print('Screen size changed do x:'+str(screenWidth) + ' y:'+str(screenHeight))
 		colorbar = self.superview['colors']
@@ -133,6 +131,7 @@ class PixelEditor(ui.View):
 		toolbarHeight = 64
 		toolbarPad = 64
 		
+		# This part is only for the toolbars
 		if screenWidth >= toolbarWidth*2 + toolbarPad*2 or screenWidth > screenHeight:
 			# Screen is larger than or equal to maximum
 			print('Toolbars are max width')
@@ -140,9 +139,9 @@ class PixelEditor(ui.View):
 			toolbar.transform = ui.Transform.scale(1.0,1.0)
 			colorbar.transform = ui.Transform.scale(1.0,1.0)
 			toolbar.x = sidePad
-			toolbar.y = toolbarPad/4
+			toolbar.y = toolbarPad/2
 			colorbar.x = sidePad+toolbarWidth
-			colorbar.y = toolbarPad/4
+			colorbar.y = toolbarPad/2
 			self.y = toolbar.height + toolbarPad*0.5
 			
 		elif screenWidth < (self.x*2)+toolbarWidth:
@@ -152,8 +151,8 @@ class PixelEditor(ui.View):
 			toolbar.transform = ui.Transform.scale(newScale, newScale)
 			colorbar.transform = ui.Transform.scale(newScale, newScale)
 			toolbar.x = colorbar.x = (screenWidth-toolbar.frame[2])/2
-			toolbar.y = toolbarPad/4
-			colorbar.y = toolbarPad/4 + toolbar.frame[3]
+			toolbar.y = toolbarPad/2
+			colorbar.y = toolbarPad/2 + toolbar.frame[3]
 			self.y = toolbar.frame[3]*2 + toolbarPad/2
 			
 		else:
@@ -163,8 +162,8 @@ class PixelEditor(ui.View):
 			colorbar.transform = ui.Transform.scale(1.0,1.0)
 			sidePad = (screenWidth-toolbarWidth)*0.5
 			toolbar.x = colorbar.x = sidePad
-			toolbar.y = toolbarPad/4
-			colorbar.y = toolbarPad/4 + toolbarHeight
+			toolbar.y = toolbarPad/2
+			colorbar.y = toolbarPad/2 + toolbarHeight
 			self.y = toolbarHeight*2 + toolbarPad*0.5
 			
 		#self.draw_grid_image()
@@ -177,6 +176,7 @@ class PixelEditor(ui.View):
 		self.image_view.width, self.image_view.height = self.frame.width, self.frame.height
 		self.grid_layout.width, self.grid_layout.height = self.frame.width, self.frame.height
 		self.color_check.width, self.color_check.height = self.frame.width, self.frame.height
+		self.y = + colorbar.y + colorbar.height + toolbarPad/8
 		
 		# Preview image position
 		self.superview['preview'].y = self.superview.height - (Settings.height * self.previewMode)
@@ -187,7 +187,7 @@ class PixelEditor(ui.View):
 		debugtext = self.superview['debugtext']
 		debugtext.width = screenWidth - self.x*2
 		debugtext.x = self.x
-		debugtext.y = self.y + self.height + toolbarPad/4
+		debugtext.y = self.y + self.height # + toolbarPad/4
 		fontsize = 18 #screenWidth*0.017578125
 		if screenWidth < 640:
 			fontsize = 12
@@ -381,8 +381,8 @@ class PixelEditor(ui.View):
 	def init_pixel_grid(self):
 		scale = self.height/self.column #self.width/self.row if self.row > self.column else self.height/self.column
 		with ui.ImageContext(int(self.frame[2]),int(self.frame[3])) as ctx:
-			for y in xrange(self.column):
-				for x in xrange(self.row):
+			for y in range(self.column):
+				for x in range(int(self.row)):
 					# Fills image with pixels
 					# Changing this changes the pixel aspect
 					#Pixel(x, y, w, h)  where (x,y) is the lower-left corner
@@ -402,15 +402,16 @@ class PixelEditor(ui.View):
 		xPixelScale = yPixelScale * 2 * Settings.aspectPAL
 		charSize = Settings.charSize
 		charScale = yPixelScale*charSize
-		xRangeStart = int(startPos[0]/charSize*charSize)
+		#xRangeStart = int(startPos[0]/charSize*charSize)
 		
-		pixelGrid = ui.Path.rect(0, 0, *self.frame[2:])
-		characterGrid = ui.Path.rect(0, 0, *self.frame[2:])
+		# Set our grid objects the same size as the paint canvas
+		pixelGrid = ui.Path.rect(0, 0, self.frame[2], self.frame[3])
+		characterGrid = ui.Path.rect(0, 0, self.frame[2], self.frame[3])
 		
 		charDrawColor = (1,1,1,0.5) if self.darkGrid == False else (0,0,0,0.5)
 		lineDrawColor = (0.5,0.5,0.5,0.5) if self.darkGrid == False else (0.25,0.25,0.25,0.5)
 		
-		with ui.ImageContext(*self.frame[2:]) as ctx:
+		with ui.ImageContext(self.frame[2], self.frame[3]) as ctx:
 			# Fills entire grid with empty color
 			ui.set_color((0, 0, 0, 0))
 			#pixelGrid.fill()
@@ -418,7 +419,7 @@ class PixelEditor(ui.View):
 			
 			# Horizontal gridlines
 			yEnd = 200 * yPixelScale
-			for x in xrange(startPos[0]+1, endPos[0]+1):
+			for x in range(int(startPos[0]+1), int(endPos[0]+1)):
 				xPos = (x-startPos[0]) * xPixelScale
 				if x%4 != 0:
 					pixelGrid.move_to(xPos,0)
@@ -429,7 +430,7 @@ class PixelEditor(ui.View):
 					
 			# Vertical gridlines
 			xEnd = 160 * xPixelScale
-			for y in xrange(startPos[1]+1, endPos[1]+1):
+			for y in range(startPos[1]+1, endPos[1]+1):
 				yPos = (y-startPos[1]) * yPixelScale
 				if y%8 != 0:
 					pixelGrid.move_to(0, yPos)
@@ -465,14 +466,6 @@ class PixelEditor(ui.View):
 		self.add_subview(image_view)
 		return image_view
 		
-	def create_crt_overlay(self):
-		crt_img = Image.new("RGB", (1, Settings.height*2), (0,0,0))
-		# Create repeating data for crt overlay
-		imgdata = ((200,200,200),(50,50,50))*Settings.height
-		crt_img.putdata(imgdata)
-		crt_img = crt_img.resize((Settings.width*2, Settings.height*2), Image.NEAREST)
-		return crt_img
-		
 	# Returns the currently zoomed region as x,y coordinates. 0-based
 	def get_zoom_region(self):
 		zoomCenter = self.zoom_frame.center
@@ -503,16 +496,20 @@ class PixelEditor(ui.View):
 	def position_pixels(self):
 		# Upper right and lower left corner of pixels in the view
 		(startPos, endPos) = self.get_current_region()
+		# Make sure these are ints
+		startPos = (int(startPos[0]), int(startPos[1]))
+		endPos = (int(endPos[0]), int(endPos[1]))
+		
 		pixelScale = (self.width/Settings.aspectPAL) / (endPos[0]-startPos[0]+1) / Settings.pixelSize # Pixel scale
 		#print('pixelScale:',str(pixelScale))
 		viewPixels = []     # Array holding the pixels in the view
 		# Move all pixels off-screen
 		if self.zoomState is True:
-			for index in xrange(0,len(self.pixels)):
+			for index in range(0,len(self.pixels)):
 				self.pixels[index].rect.x = self.pixels[index].rect.y = -100
 		# Position zoomed pixels over canvas
-		for y in xrange(startPos[1],endPos[1]+1):
-			for x in xrange(startPos[0],endPos[0]+1):
+		for y in range(startPos[1],endPos[1]+1):
+			for x in range(startPos[0],endPos[0]+1):
 				curPixel = self.pixels[xy_to_index(x, y, Settings.actualWidth)]
 				viewPixels.append(curPixel.index)
 				# rect.x, rect.y is components LOWER-left corner
@@ -552,9 +549,9 @@ class PixelEditor(ui.View):
 		colorList = list()
 		for p in self.pixels:
 			colorList.append(p.color)
-		for row in xrange(0,200):
+		for row in range(0,200):
 			startIndex = row * 160
-			for col in xrange(0, 160):
+			for col in range(0, 160):
 				self.pixels[startIndex+col].color = colorList[startIndex+(159-col)]
 		del colorList
 		self.redraw_canvas()
@@ -565,8 +562,8 @@ class PixelEditor(ui.View):
 		colorList = list()
 		for p in self.pixels:
 			colorList.append(p.color)
-		for row in xrange(0,200):
-			for col in xrange(0, 160):
+		for row in range(0,200):
+			for col in range(0, 160):
 				self.pixels[(row * 160)+col].color = colorList[((199-row) * 160)+col]
 		del colorList
 		self.redraw_canvas()
@@ -637,8 +634,8 @@ class PixelEditor(ui.View):
 			with ui.ImageContext(self.width, self.height) as ctx:
 				ui.set_color(stateColor[self.colorCheckState])
 				# Grid line per character
-				for y in xrange(int(startPos[1]/charSize)*charSize, endPos[1]+1, charSize):
-					for x in xrange(int(startPos[0]/charSize*charSize), endPos[0]+1,4):
+				for y in range(int(startPos[1]/charSize)*charSize, endPos[1]+1, charSize):
+					for x in range(int(startPos[0]/charSize*charSize), endPos[0]+1,4):
 						# Check this character for color clash
 						charColors ={self.background_color[:3]}
 						startIndex = xy_to_index(x, y, Settings.actualWidth)
@@ -663,7 +660,15 @@ class PixelEditor(ui.View):
 				self.superview['debugtext'].text = str(clashCount) + " characters have 2 available colors."
 			#self.colorCheckState += 1
 			return clashCount
-			
+	
+	def create_crt_overlay(self):
+		crt_img = Image.new("RGB", (1, Settings.height*2), (0,0,0))
+		# Create repeating data for crt overlay
+		imgdata = ((200,200,200),(50,50,50))*Settings.height # height is 200
+		crt_img.putdata(imgdata)
+		crt_img = crt_img.resize((Settings.width*2, Settings.height*2), Image.NEAREST)
+		return crt_img
+		
 	#@ui.in_background
 	def preview_init(self):
 		path = ui.Path.rect(0, 0, Settings.width, Settings.height)
@@ -673,15 +678,18 @@ class PixelEditor(ui.View):
 			self.superview['preview'].image = ctx.get_image()
 		return True
 		
+	# TODO: The image seems to be scaled incorrectly. Investigate!
 	@ui.in_background
 	def preview_putimg(self, ui_img):
-		self.unfilteredPreview = ui_img
+		#self.unfilteredPreview = ui_img
+		
 		# A simple and fast CRT-emulation for our preview:
-		pil_img = ui_to_pil(ui_img)
+		pil_img = pixels_to_png(self.background_color, self.pixels, self.row*2, self.column)
 		pil_img = pil_img.resize((Settings.width*2, Settings.height*2), Image.NEAREST)
 		pil_img = pil_img.convert("RGB")
 		pil_img = ImageChops.multiply(pil_img.filter(ImageFilter.SMOOTH), self.crt_overlay)
 		pil_img = ImageChops.screen(pil_img.filter(ImageFilter.GaussianBlur(5)), pil_img)
+		# Todo: Crashes in latest Pythonista:
 		ui_img = pil_to_ui(pil_img)
 		self.superview['preview'].image = ui_img
 		return True
@@ -760,12 +768,12 @@ class PixelEditor(ui.View):
 		#indicator.start()
 		pixelCol = (0,0,0)
 		#self.superview['labelbg'].background_color = (1,0,0)
-		for charRow in xrange(0, Settings.height/Settings.charSize):
+		for charRow in range(0, int(Settings.height/Settings.charSize)):
 			indexArray = []
 			startIndex = charRow*charRowSize
 			endIndex = charRow*charRowSize + charRowSize
 			#print ("Importing subrow: " + str(startIndex) + ", " + str(endIndex))
-			for i in xrange(startIndex, endIndex):
+			for i in range(startIndex, endIndex):
 				indexArray.append(i)
 				# Todo: getpixel is slow, find an alternative
 				pixelCol = loadImg.getpixel(self.pixels[i].position)
@@ -909,7 +917,7 @@ class PixelEditor(ui.View):
 			yIncr = 0 if yDist == 0 else (float(xDist)/yDist)
 			xIncr = 0 if xDist == 0 else (float(yDist)/xDist)
 			# Update all pixel objects along the drawn line
-			for c in xrange(1, max(xDist,yDist)):
+			for c in range(1, max(xDist,yDist)):
 				if yDist >= xDist:
 					#self.current_color = 'yellow' # debug color
 					curPixel = self.pixels[ xy_to_index( int(xStart+(yIncr*c*xDir)+0.5), int(yStart+(c*yDir)), Settings.actualWidth )]
@@ -1023,7 +1031,8 @@ class PixelEditor(ui.View):
 							self.draw_line(self.prevPixel, pixel, touchState)
 							self.prevPixel = pixel
 							if touchState == "ended":
-								#self.preview_update()
+								# ToDo: This crashes the program. Fix it.
+								self.preview_update()
 								self.prevPixel = []
 							self.superview['debugtext'].text = "index:" + str(pixel.index) + ", pos:" + str(pixel.position)
 					# We will try to merge strokes that are close together in time
@@ -1035,7 +1044,7 @@ class PixelEditor(ui.View):
 						self.next_undo_step()
 						undoDelta = int(time()) - self.lastUndo
 						if undoDelta > Settings.previewTime:
-							self.preview_update()
+							#self.preview_update()
 							self.lastUndo = int(time())
 						# Auto-save image
 						saveDelta = int(time()) - self.lastSave
@@ -1155,7 +1164,7 @@ class ColorView (ui.View):
 			self.subviews[2].background_image = ui.Image.named('icons/tool_palette_numeric.png')
 			try:
 				self.superview['debugtext'].text = "Palette set to numeric"
-			except Exception:
+			except Exception as e:
 				pass
 		elif self.palette_type == 'gradient':
 			for subview in self['palette'].subviews:
@@ -1458,16 +1467,18 @@ class ToolbarView (ui.View):
 		numPrevPos = 2
 		prevsize = ''
 		prevMode = self.superview['editor'].previewMode
-
+		
 		if update == True:
 			self.superview['editor'].previewPos = (self.superview['editor'].previewPos + 1) % numPrevPos
+			print("Updating preview position")
 		
 		self.superview['preview'].y = self.superview.height - (Settings.height * prevMode)
 		
-		if self.superview['editor'].previewPos == 1:
+		if self.superview['editor'].previewPos == 0:
 			self.superview['preview'].x = 0
-		elif self.superview['editor'].previewPos == 0:
+		elif self.superview['editor'].previewPos == 1:
 			self.superview['preview'].x = self.superview.width - (Settings.width * Settings.aspectPAL * prevMode)
+		
 		return True	
 			
 	def file(self, sender):
@@ -1488,11 +1499,12 @@ class ToolbarView (ui.View):
 	def exit(self, sender):
 		msg = 'Are you sure you want to quit the pixel editor?'
 		if console.alert('Quit', msg, 'Yes'):
+			# ToDo: Fix the error when exiting
 			try:
 				self.superview['editor'].autosave(self.superview['editor'].imageName)
-			except Exception,e:
-				print ('Problem saving at exit with error: ' + str(e))
-
+			except Exception as e: 
+				print(e)
+			
 			self.superview.close()
 		else:
 			self.show_error()

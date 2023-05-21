@@ -31,8 +31,8 @@ class ImportWindow(ui.View):
 				Settings.aspect_options[0], Settings.crop_options[0]) # Open as PIL image
 		self.working = False
 		
-		buttcol = color_to_1(Settings.c64color_palette[14])
-		backcol = color_to_1(Settings.c64color_palette[6])
+		buttcol = color_to_1(Settings.c64color_palette[12])
+		backcol = color_to_1(Settings.c64color_palette[11])
 		textcol = 'white'
 		#coltwo = 210
 		#self.selectedImage = ''
@@ -77,8 +77,8 @@ class ImportWindow(ui.View):
 		palbutt_pad = 10.0
 		palbutt_width = (palbutt_end-palbutt_start-(palbutt_pad*(len(Settings.c64color_palette))))/(len(Settings.c64color_palette)+1)
 	
-		buttcol = color_to_1(Settings.c64color_palette[14])
-		backcol = color_to_1(Settings.c64color_palette[6])
+		buttcol = color_to_1(Settings.c64color_palette[12])
+		backcol = color_to_1(Settings.c64color_palette[11])
 		textcol = 'white'
 	
 		#print ('palbutt_width: ' + str(palbutt_width))
@@ -179,7 +179,7 @@ class ImportWindow(ui.View):
 		else:
 			previmg = ui_to_pil(sender.superview.convertPreview.image)
 		
-		for c in range (0, loadimg.height/10):
+		for c in range (0, int(loadimg.height/10)):
 			startline = c*10
 			endline = (c+1)*10
 
@@ -188,7 +188,7 @@ class ImportWindow(ui.View):
 			cropimg = img.crop((0,startline, img.width, endline))
 			previmg.paste(cropimg, (0,startline))
 			if endline < previmg.height:
-				for xcoord in xrange(0, previmg.width):
+				for xcoord in range(0, previmg.width):
 					previmg.putpixel((xcoord, endline+1), (255,255,255))
 			sender.superview.convertPreview.image = pil_to_ui(previmg)
 			
