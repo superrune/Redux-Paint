@@ -1,6 +1,6 @@
 #!python3
 
-from redux_functions import *
+from include.redux_functions import *
 
 # Settings used across the editor
 class Settings (object):

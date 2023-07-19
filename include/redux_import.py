@@ -2,8 +2,8 @@
 
 from PIL import Image
 from os.path import basename, splitext
-from redux_settings import Settings
-from redux_functions import *
+from include.redux_settings import Settings
+from include.redux_functions import *
 import ui
 
 #import ImageChops

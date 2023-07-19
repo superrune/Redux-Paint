@@ -14,9 +14,9 @@ from objc_util import ObjCInstance
 from PIL import Image
 #from images2gif import writeGif # Missing from latest Pythonista
 
-from redux_settings import Settings
-from redux_import import ImportWindow
-from redux_functions import *
+from include.redux_settings import Settings
+from include.redux_import import ImportWindow
+from include.redux_functions import *
 
 class FileWindow(ui.View):
 	def __init__(self):

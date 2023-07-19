@@ -65,7 +65,6 @@ from shutil import copy2, copytree, rmtree
 from include.redux_functions import *
 from include.redux_settings import Settings
 from include.redux_file import FileWindow
-#from redux_file import FileWindow
 
 
 
@@ -635,7 +634,8 @@ class PixelEditor(ui.View):
 				ui.set_color(stateColor[self.colorCheckState])
 				# Grid line per character
 				for y in range(int(startPos[1]/charSize)*charSize, endPos[1]+1, charSize):
-					for x in range(int(startPos[0]/charSize*charSize), endPos[0]+1,4):
+					# TODO: Gives Python 3 error
+					for x in range(int(startPos[0]/charSize*charSize), int(endPos[0]+1), 4):
 						# Check this character for color clash
 						charColors ={self.background_color[:3]}
 						startIndex = xy_to_index(x, y, Settings.actualWidth)
