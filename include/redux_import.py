@@ -1,25 +1,10 @@
-#!python2
+#!python3
 
 from PIL import Image
 from os.path import basename, splitext
 from include.redux_settings import Settings
 from include.redux_functions import *
 import ui
-
-#import ImageChops
-#import ImageOps
-#import ImageFilter
-#import ImageEnhance
-#import numpy
-#import math
-#import time
-#import random
-
-#from io import BytesIO
-#from os.path import isfile, isdir, getctime, basename, exists, splitext
-#import shutil
-#from dialogs import pick_document
-
 
 class ImportWindow(ui.View):
 	def __init__(self, filename):

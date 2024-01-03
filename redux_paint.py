@@ -792,6 +792,7 @@ class PixelEditor(ui.View):
 		return True
 		
 	# Export image to c64 native binaries
+	@ui.in_background
 	def savebinary(self, fileFormat='koa'):
 	
 		# Base character index list
@@ -1277,6 +1278,7 @@ class ToolbarView (ui.View):
 			for sv in subview.subviews:
 				self.init_actions(sv)
 				
+	@ui.in_background
 	def show_error(self):
 		console.hud_alert('Editor has no image', 'error', 0.8)
 		
@@ -1496,15 +1498,15 @@ class ToolbarView (ui.View):
 			self.superview['debugtext'].text = ('File window opened.')
 		return True
 
+	@ui.in_background
 	def exit(self, sender):
 		msg = 'Are you sure you want to quit the pixel editor?'
 		if console.alert('Quit', msg, 'Yes'):
-			# ToDo: Fix the error when exiting
 			try:
 				self.superview['editor'].autosave(self.superview['editor'].imageName)
 			except Exception as e: 
 				print(e)
-			
+				
 			self.superview.close()
 		else:
 			self.show_error()

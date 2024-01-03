@@ -205,10 +205,11 @@ class FileWindow(ui.View):
 			self.superview['debugtext'].text = 'Loaded ' + base_name
 			return True
 	
+	@ui.in_background
 	def new(self, sender):
 		if self.superview['editor'].has_image():
-			trashMsg = 'Are you sure you want to clear the editor? Image will not be saved.'
-			if console.alert('New Image', trashMsg, 'Yes'):
+			trashMsg = 'Are you sure you want to clear the editor?'
+			if console.alert(trashMsg, 'Yes'):
 				image_name = console.input_alert('New Image', '', 'myimage', 'Create New')
 				print ('New name returned:' + image_name)
 				self.superview['editor'].reset()
@@ -218,6 +219,7 @@ class FileWindow(ui.View):
 		else:
 			self.show_error()
 	
+	@ui.in_background
 	def rename(self, sender):
 		current_name = pngstrip(self.selectedImage)
 		if current_name == '':
@@ -241,6 +243,7 @@ class FileWindow(ui.View):
 				
 		return True
 	
+	@ui.in_background
 	def duplicate(self, sender):
 		current_name = pngstrip(self.selectedImage)
 		if current_name == '':
@@ -265,6 +268,7 @@ class FileWindow(ui.View):
 		return True
 	
 	
+	@ui.in_background
 	def importphoto(self, sender):
 		photo_asset = pick_asset(assets=get_assets(),title='Select image for import', multi=False)
 		
@@ -296,6 +300,7 @@ class FileWindow(ui.View):
 				print ("Not a photo, canceling import.")
 				
 		
+	@ui.in_background
 	def importfiles(self, sender):
 		picked_file = pick_document(types=['public.data'])
 		print('Attempting to import:' + str(picked_file))
@@ -345,6 +350,7 @@ class FileWindow(ui.View):
 		return True
 		
 		
+	@ui.in_background
 	def deletefile(self, sender):
 		current_name = pngstrip(self.selectedImage)
 		if current_name == '':
@@ -466,6 +472,7 @@ class FileWindow(ui.View):
 		return img
 	
 	
+	@ui.in_background
 	def save_multiply_aspect(self, sender):
 		sizeMult = self.sizeMult
 		pixel_editor = self.superview['editor']
@@ -481,6 +488,7 @@ class FileWindow(ui.View):
 		else:
 			self.show_error()
 			
+	@ui.in_background
 	def save_crt(self, sender):
 		pixel_editor = self.superview['editor']
 		if pixel_editor.has_image():
