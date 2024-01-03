@@ -122,10 +122,16 @@ class ImportWindow(ui.View):
 		self.slider_range = ui.Slider(frame=(400,startline,240,32), action=self.set_dither_range, value=Settings.dither_range)
 		self.add_subview(self.slider_range)
 		
+		startline = startline + 40
+		self.autoupdatebutton = ui.Switch(frame=(340,startline,128,32))
+		self.add_subview(self.autoupdatebutton)
+		self.autoupdatelabel = ui.Label(frame=(400,startline,200,32), text='Auto update preview', text_color=textcol)
+		self.add_subview(self.autoupdatelabel)
 		
 		startline = 480
 		self.importbutton = build_button(self, 'Import', 100, (420,startline), self.send_to_editor, buttcol, backcol, textcol)
 		self.cancelbutton = build_button(self, 'Cancel', 100, (540, startline), self.close_importwindow, buttcol, backcol, textcol)
+		
 		
 		# Load the image into the preview window
 		self.image_hls_adjust(self.slider_contrast)

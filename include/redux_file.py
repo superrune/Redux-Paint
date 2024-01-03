@@ -11,7 +11,8 @@ from os.path import isfile, isdir, getctime, basename, exists, splitext
 from os import mkdir, listdir, remove, rename
 from shutil import copy2, copytree, rmtree, copyfile
 from objc_util import ObjCInstance
-from PIL import Image
+from PIL import Image, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 #from images2gif import writeGif # Missing from latest Pythonista
 
 from include.redux_settings import Settings
@@ -207,17 +208,18 @@ class FileWindow(ui.View):
 	
 	@ui.in_background
 	def new(self, sender):
-		if self.superview['editor'].has_image():
-			trashMsg = 'Are you sure you want to clear the editor?'
-			if console.alert(trashMsg, '', 'Yes', hide_cancel_button=False) == 1:
-				image_name = console.input_alert('New Image', '', 'myimage', 'Create New')
-				print ('New name returned:' + image_name)
-				self.superview['editor'].reset()
-				self.superview['editor'].imageName = image_name
-				#self.superview['editor'].autosave()
-				self.superview['editor'].remove_subview(self.superview['File window'])
+		#if self.superview['editor'].has_image():
+		trashMsg = 'Are you sure you want to clear the editor?'
+		if console.alert(trashMsg, '', 'Yes', hide_cancel_button=False) == 1:
+			image_name = console.input_alert('New Image', '', 'myimage', 'Create New')
+			print ('New name returned:' + image_name)
+			self.superview['editor'].reset()
+			self.superview['editor'].imageName = image_name
+			#self.superview['editor'].autosave()
+			self.superview['editor'].remove_subview(self.superview['File window'])
 		else:
-			self.show_error()
+			#ToDo: Pop up an error message
+			print("Error in new_image")
 	
 	@ui.in_background
 	def rename(self, sender):
@@ -442,7 +444,8 @@ class FileWindow(ui.View):
 			#clipboard.set_image(image, format='png')
 			console.hud_alert('Successfully shared PNG image.')
 		else:
-			self.show_error()
+			#ToDo: Pop up an error message
+			print("Error in save_clean")
 	
 	
 	def multiply_aspect(self,img, multiplier, scanline_strength):
@@ -486,7 +489,8 @@ class FileWindow(ui.View):
 			
 			console.hud_alert('Successfully shared PNG image.')
 		else:
-			self.show_error()
+			#ToDo: Pop up an error message
+			print("Error in save_multiply_aspect")
 			
 	@ui.in_background
 	def save_crt(self, sender):
@@ -504,5 +508,6 @@ class FileWindow(ui.View):
 			
 			console.hud_alert('Saved shared CRT preview.')
 		else:
-			self.show_error()
+			#ToDo: Pop up an error message
+			print("Error in save_crt")
 

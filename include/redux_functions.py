@@ -256,10 +256,12 @@ def resize_into_img(img, width, height, scalefilter=Image.NEAREST):
 	else:
 		resize_width = width
 		resize_height = img.height * width / img.width
+	resize_width = int(resize_width)
+	resize_height = int(resize_height)
 	image_resize = img.resize((resize_width, resize_height), scalefilter)
 	print('Image scaled to:' + str(image_resize.size))
 	background = Image.new('RGBA', (width, height), (0, 0, 0, 255))
-	offset = ((width - resize_width) / 2, (height - resize_height) / 2)
+	offset = (int((width - resize_width) / 2), int((height - resize_height) / 2))
 	#offset = (50,50)
 	background.paste(image_resize, offset)
 	return background.convert('RGB')

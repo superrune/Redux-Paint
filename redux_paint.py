@@ -2,7 +2,7 @@
 
 # Redux Paint AKA Pythonista C64 Painter AKA Python learning exercise gone rogue
 #
-# Rune Spaans 2017-2023
+# Rune Spaans 2017-2024
 #
 # Bringest ye holy handgrenades, here be monstrous code and vicious rabbits!
 # Some code based on Pythonista Pixel Editor by Sebastian Jarsve
@@ -318,6 +318,7 @@ class PixelEditor(ui.View):
 		return False
 		
 	# Check if image is not all black
+	# ToDo: This function fails
 	def has_image(self):
 		im = ui_to_pil(self.image_view.image)
 		extrema = im.convert("L").getextrema()
