@@ -209,7 +209,7 @@ class FileWindow(ui.View):
 	def new(self, sender):
 		if self.superview['editor'].has_image():
 			trashMsg = 'Are you sure you want to clear the editor?'
-			if console.alert(trashMsg, 'Yes'):
+			if console.alert(trashMsg, '', 'Yes', hide_cancel_button=False) == 1:
 				image_name = console.input_alert('New Image', '', 'myimage', 'Create New')
 				print ('New name returned:' + image_name)
 				self.superview['editor'].reset()
